@@ -1,0 +1,873 @@
+{
+  "id": "com.gardena.sileno",
+  "version": "0.0.1",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Gardena Sileno Smart"
+  },
+  "description": {
+    "en": "Full control of your mower!"
+  },
+  "category": [
+    "appliances"
+  ],
+  "brandColor": "#273A60",
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Rickard Hansson",
+    "email": "rickard.hansson@outlook.com"
+  },
+  "source": "https://github.com/zepign/com.gardena.sileno",
+  "capabilities": {
+    "mower_activity_capability": {
+      "type": "enum",
+      "title": {
+        "en": "Activity"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/mower/assets/activity.svg",
+      "values": [
+        {
+          "id": "NONE",
+          "title": {
+            "en": "Unknown"
+          }
+        },
+        {
+          "id": "OK_CUTTING",
+          "title": {
+            "en": "Mowing (schedule)"
+          }
+        },
+        {
+          "id": "OK_CUTTING_TIMER_OVERRIDDEN",
+          "title": {
+            "en": "Mowing (manual)"
+          }
+        },
+        {
+          "id": "OK_SEARCHING",
+          "title": {
+            "en": "Going home"
+          }
+        },
+        {
+          "id": "OK_LEAVING",
+          "title": {
+            "en": "Leaving"
+          }
+        },
+        {
+          "id": "PARKED_TIMER",
+          "title": {
+            "en": "Parked (schedule)"
+          }
+        },
+        {
+          "id": "PARKED_PARK_SELECTED",
+          "title": {
+            "en": "Parked (manual)"
+          }
+        },
+        {
+          "id": "PARKED_AUTOTIMER",
+          "title": {
+            "en": "Parked (SensorControl)"
+          }
+        },
+        {
+          "id": "OK_CHARGING",
+          "title": {
+            "en": "Charging"
+          }
+        }
+      ]
+    },
+    "mower_state_capability": {
+      "type": "enum",
+      "title": {
+        "en": "State"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/mower/assets/grass.svg",
+      "values": [
+        {
+          "id": "OK",
+          "title": {
+            "en": "OK"
+          }
+        },
+        {
+          "id": "WARNING",
+          "title": {
+            "en": "Warning"
+          }
+        },
+        {
+          "id": "ERROR",
+          "title": {
+            "en": "Error"
+          }
+        },
+        {
+          "id": "UNAVAILABLE",
+          "title": {
+            "en": "Unavailable"
+          }
+        }
+      ]
+    },
+    "mower_errorcode_capability": {
+      "type": "enum",
+      "title": {
+        "en": "Errorcode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/mower/assets/error.svg",
+      "values": [
+        {
+          "id": "NO_MESSAGE",
+          "title": {
+            "en": "---"
+          }
+        },
+        {
+          "id": "OUTSIDE_WORKING_AREA",
+          "title": {
+            "en": "Outside working area"
+          }
+        },
+        {
+          "id": "NO_LOOP_SIGNAL",
+          "title": {
+            "en": "No loop signal"
+          }
+        },
+        {
+          "id": "WRONG_LOOP_SIGNAL",
+          "title": {
+            "en": "Wrong loop signal"
+          }
+        },
+        {
+          "id": "LOOP_SENSOR_PROBLEM_FRONT",
+          "title": {
+            "en": "Loop sensor problem, front"
+          }
+        },
+        {
+          "id": "LOOP_SENSOR_PROBLEM_REAR",
+          "title": {
+            "en": "Loop sensor problem, rear"
+          }
+        },
+        {
+          "id": "LOOP_SENSOR_PROBLEM_LEFT",
+          "title": {
+            "en": "Loop sensor problem, left"
+          }
+        },
+        {
+          "id": "LOOP_SENSOR_PROBLEM_RIGHT",
+          "title": {
+            "en": "Loop sensor problem, right"
+          }
+        },
+        {
+          "id": "WRONG_PIN_CODE",
+          "title": {
+            "en": "Wrong PIN code"
+          }
+        },
+        {
+          "id": "TRAPPED",
+          "title": {
+            "en": "Trapped"
+          }
+        },
+        {
+          "id": "UPSIDE_DOWN",
+          "title": {
+            "en": "Upside down"
+          }
+        },
+        {
+          "id": "EMPTY_BATTERY",
+          "title": {
+            "en": "Empty battery"
+          }
+        },
+        {
+          "id": "NO_DRIVE",
+          "title": {
+            "en": "No drive"
+          }
+        },
+        {
+          "id": "TEMPORARILY_LIFTED",
+          "title": {
+            "en": "Mower lifted"
+          }
+        },
+        {
+          "id": "LIFTED",
+          "title": {
+            "en": "Lifted"
+          }
+        },
+        {
+          "id": "STUCK_IN_CHARGING_STATION",
+          "title": {
+            "en": "Stuck in charging station"
+          }
+        },
+        {
+          "id": "CHARGING_STATION_BLOCKED",
+          "title": {
+            "en": "Charging station blocked"
+          }
+        },
+        {
+          "id": "COLLISION_SENSOR_PROBLEM_REAR",
+          "title": {
+            "en": "Collision sensor problem, rear"
+          }
+        },
+        {
+          "id": "COLLISION_SENSOR_PROBLEM_FRONT",
+          "title": {
+            "en": "Collision sensor problem, front"
+          }
+        },
+        {
+          "id": "WHEEL_MOTOR_BLOCKED_RIGHT",
+          "title": {
+            "en": "Wheel motor blocked, right"
+          }
+        },
+        {
+          "id": "WHEEL_MOTOR_BLOCKED_LEFT",
+          "title": {
+            "en": "Wheel motor blocked, left"
+          }
+        },
+        {
+          "id": "WHEEL_DRIVE_PROBLEM_RIGHT",
+          "title": {
+            "en": "Wheel drive problem, right"
+          }
+        },
+        {
+          "id": "WHEEL_DRIVE_PROBLEM_LEFT",
+          "title": {
+            "en": "Wheel drive problem, left"
+          }
+        },
+        {
+          "id": "CUTTING_SYSTEM_BLOCKED",
+          "title": {
+            "en": "Cutting system blocked"
+          }
+        },
+        {
+          "id": "CUTTING_MOTOR_DRIVE_DEFECT",
+          "title": {
+            "en": "Cutting motor drive defect"
+          }
+        },
+        {
+          "id": "INVALID_SUB_DEVICE_COMBINATION",
+          "title": {
+            "en": "Invalid sub-device combination"
+          }
+        },
+        {
+          "id": "MEMORY_CIRCUIT_PROBLEM",
+          "title": {
+            "en": "Memory circuit problem"
+          }
+        },
+        {
+          "id": "CHARGING_SYSTEM_PROBLEM",
+          "title": {
+            "en": "Charging system problem"
+          }
+        },
+        {
+          "id": "STOP_BUTTON_PROBLEM",
+          "title": {
+            "en": "STOP button problem"
+          }
+        },
+        {
+          "id": "TILT_SENSOR_PROBLEM",
+          "title": {
+            "en": "Tilt sensor problem"
+          }
+        },
+        {
+          "id": "MOWER_TILTED",
+          "title": {
+            "en": "Mower tilted"
+          }
+        },
+        {
+          "id": "WHEEL_MOTOR_OVERLOADED_RIGHT",
+          "title": {
+            "en": "Wheel motor overloaded, right"
+          }
+        },
+        {
+          "id": "WHEEL_MOTOR_OVERLOADED_LEFT",
+          "title": {
+            "en": "Wheel motor overloaded, left"
+          }
+        },
+        {
+          "id": "CHARGING_CURRENT_TOO_HIGH",
+          "title": {
+            "en": "Charging current too high"
+          }
+        },
+        {
+          "id": "ELECTRONIC_PROBLEM",
+          "title": {
+            "en": "Electronic problem"
+          }
+        },
+        {
+          "id": "CUTTING_MOTOR_PROBLEM",
+          "title": {
+            "en": "Cutting motor problem"
+          }
+        },
+        {
+          "id": "LIMITED_CUTTING_HEIGHT_RANGE",
+          "title": {
+            "en": "Limited cutting height range"
+          }
+        },
+        {
+          "id": "CUTTING_HEIGHT_PROBLEM_DRIVE",
+          "title": {
+            "en": "Cutting height problem, drive"
+          }
+        },
+        {
+          "id": "CUTTING_HEIGHT_PROBLEM_CURR",
+          "title": {
+            "en": "Cutting height problem, curr"
+          }
+        },
+        {
+          "id": "CUTTING_HEIGHT_PROBLEM_DIR",
+          "title": {
+            "en": "Cutting height problem, dir"
+          }
+        },
+        {
+          "id": "CUTTING_HEIGHT_BLOCKED",
+          "title": {
+            "en": "Cutting height blocked"
+          }
+        },
+        {
+          "id": "CUTTING_HEIGHT_PROBLEM",
+          "title": {
+            "en": "Cutting height problem"
+          }
+        },
+        {
+          "id": "BATTERY_PROBLEM",
+          "title": {
+            "en": "Battery problem"
+          }
+        },
+        {
+          "id": "TOO_MANY_BATTERIES",
+          "title": {
+            "en": "Too many batteries"
+          }
+        },
+        {
+          "id": "ALARM_MOWER_SWITCHED_OFF",
+          "title": {
+            "en": "Alarm! Mower switched off"
+          }
+        },
+        {
+          "id": "ALARM_MOWER_STOPPED",
+          "title": {
+            "en": "Alarm! Mower stopped"
+          }
+        },
+        {
+          "id": "ALARM_MOWER_LIFTED",
+          "title": {
+            "en": "Alarm! Mower lifted"
+          }
+        },
+        {
+          "id": "ALARM_MOWER_TILTED",
+          "title": {
+            "en": "Alarm! Mower tilted"
+          }
+        },
+        {
+          "id": "ALARM_MOWER_IN_MOTION",
+          "title": {
+            "en": "Alarm! Mower in motion"
+          }
+        },
+        {
+          "id": "ALARM_OUTSIDE_GEOFENCE",
+          "title": {
+            "en": "Alarm! Outside geofence"
+          }
+        },
+        {
+          "id": "SLIPPED",
+          "title": {
+            "en": "Slipped - Mower has Slipped.Situation not solved with moving pattern"
+          }
+        },
+        {
+          "id": "INVALID_BATTERY_COMBINATION",
+          "title": {
+            "en": "Invalid battery combination - Invalid combination of different battery types."
+          }
+        },
+        {
+          "id": "UNINITIALISED",
+          "title": {
+            "en": "Radio module sent uninitialised value. We do not know the status of the mower."
+          }
+        },
+        {
+          "id": "WAIT_UPDATING",
+          "title": {
+            "en": "Mower waiting, updating firmware."
+          }
+        },
+        {
+          "id": "WAIT_POWER_UP",
+          "title": {
+            "en": "Mower powering up."
+          }
+        },
+        {
+          "id": "OFF_DISABLED",
+          "title": {
+            "en": "Mower disabled on main switch."
+          }
+        },
+        {
+          "id": "OFF_HATCH_OPEN",
+          "title": {
+            "en": "Mower in waiting state with hatch open."
+          }
+        },
+        {
+          "id": "OFF_HATCH_CLOSED",
+          "title": {
+            "en": "Mower in waiting state with hatch closed."
+          }
+        },
+        {
+          "id": "PARKED_DAILY_LIMIT_REACHED",
+          "title": {
+            "en": "Mower has completed cutting due to daily limit reached."
+          }
+        }
+      ]
+    },
+    "mower_battery_capability": {
+      "type": "number",
+      "title": {
+        "en": "Battery"
+      },
+      "units": "%",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/mower/assets/battery.svg"
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "mower_activity_capability_changed",
+        "title": {
+          "en": "Activity changed"
+        },
+        "tokens": [
+          {
+            "name": "value",
+            "type": "string",
+            "title": {
+              "en": "Activity"
+            },
+            "example": "MOWING"
+          }
+        ],
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "mower_state_capability_changed",
+        "title": {
+          "en": "State changed"
+        },
+        "tokens": [
+          {
+            "name": "value",
+            "type": "string",
+            "title": {
+              "en": "State"
+            },
+            "example": "WARNING"
+          }
+        ],
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "mower_battery_capability_changed",
+        "title": {
+          "en": "Battery level changed"
+        },
+        "tokens": [
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Battery"
+            },
+            "example": 42
+          }
+        ],
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "mower_errorcode_capability_changed",
+        "title": {
+          "en": "Errorcode changed"
+        },
+        "tokens": [
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Error code"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "activity_is",
+        "title": {
+          "en": "Activity is"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          },
+          {
+            "name": "activity",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "NONE",
+                "title": {
+                  "en": "Unknown"
+                }
+              },
+              {
+                "id": "OK_CUTTING",
+                "title": {
+                  "en": "Mowing (schedule)"
+                }
+              },
+              {
+                "id": "OK_CUTTING_TIMER_OVERRIDDEN",
+                "title": {
+                  "en": "Mowing (manual)"
+                }
+              },
+              {
+                "id": "OK_SEARCHING",
+                "title": {
+                  "en": "Going home"
+                }
+              },
+              {
+                "id": "OK_LEAVING",
+                "title": {
+                  "en": "Leaving"
+                }
+              },
+              {
+                "id": "PARKED_TIMER",
+                "title": {
+                  "en": "Parked (schedule)"
+                }
+              },
+              {
+                "id": "PARKED_PARK_SELECTED",
+                "title": {
+                  "en": "Parked (manual)"
+                }
+              },
+              {
+                "id": "PARKED_AUTOTIMER",
+                "title": {
+                  "en": "Parked (SensorControl)"
+                }
+              },
+              {
+                "id": "OK_CHARGING",
+                "title": {
+                  "en": "Charging"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "state_is",
+        "title": {
+          "en": "State is"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "OK",
+                "title": {
+                  "en": "OK"
+                }
+              },
+              {
+                "id": "WARNING",
+                "title": {
+                  "en": "Warning"
+                }
+              },
+              {
+                "id": "ERROR",
+                "title": {
+                  "en": "Error"
+                }
+              },
+              {
+                "id": "UNAVAILABLE",
+                "title": {
+                  "en": "Unavailable"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "park_until_next_schedule",
+        "title": {
+          "en": "Park until next schedule"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "park_until_further_notice",
+        "title": {
+          "en": "Park"
+        },
+        "hint": {
+          "en": "Park until further notice"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "resume_schedule",
+        "title": {
+          "en": "Resume"
+        },
+        "hint": {
+          "en": "Resume normal schedule"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          }
+        ]
+      },
+      {
+        "id": "start_duration",
+        "title": {
+          "en": "Start and run for duration of time"
+        },
+        "hint": {
+          "en": "Start mower and run for duration of time, overriding normal schedule"
+        },
+        "args": [
+          {
+            "name": "Sileno",
+            "type": "device",
+            "filter": "driver_id=mower"
+          },
+          {
+            "type": "number",
+            "name": "hours",
+            "placeholder": {
+              "en": "Number of hours"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "id": "mower",
+      "name": {
+        "en": "Sileno"
+      },
+      "class": "other",
+      "capabilities": [
+        "mower_activity_capability",
+        "mower_state_capability",
+        "mower_errorcode_capability",
+        "mower_battery_capability"
+      ],
+      "images": {
+        "large": "/drivers/mower/assets/images/large.png",
+        "small": "/drivers/mower/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Status polling"
+          },
+          "children": [
+            {
+              "id": "polling_interval",
+              "type": "number",
+              "label": {
+                "en": "Polling Interval"
+              },
+              "hint": {
+                "en": "Note that the Gardena/Husqvarna API has limitations for each account of 10,000 calls/month. Recomendation is to keep it on 10 minutes."
+              },
+              "value": 10,
+              "min": 1,
+              "max": 240,
+              "units": {
+                "en": "minutes"
+              }
+            },
+            {
+              "id": "polling",
+              "type": "radio",
+              "label": {
+                "en": "Polling enabled"
+              },
+              "hint": {
+                "en": "Note that if you only use Flow Actions to control the mower you do not need polling."
+              },
+              "value": "true",
+              "values": [
+                {
+                  "id": "true",
+                  "label": {
+                    "en": "Yes"
+                  }
+                },
+                {
+                  "id": "false",
+                  "label": {
+                    "en": "No"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

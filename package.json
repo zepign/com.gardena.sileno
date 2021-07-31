@@ -1,0 +1,12 @@
+{
+  "name": "com.gardena.sileno",
+  "version": "0.0.1",
+  "main": "app.js",
+  "devDependencies": {
+    "homey": "^2.8.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "uid": "^2.0.0"
+  }
+}
