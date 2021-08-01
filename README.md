@@ -43,4 +43,4 @@ Based on the excellent work by @magohl on https://github.com/magohl/com.husqvarn
 * Use triggers, conditions or actions in your Homey flows or check status in the device overview.
 
 ### Rate limitations
-Note that the Gardena/Husqvarna API currently has an rate limitation of 10,000 calls per month and account. By default this homey app polls the Gardena Smart API every 10 minutes. You can change this in app settings.
+Note that the Gardena Smart API currently has an rate limitation of 3000 calls per month and account. By default this homey app polls the Gardena Smart API every 20 minutes. You can change this in app settings.
