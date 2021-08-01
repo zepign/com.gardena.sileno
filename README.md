@@ -22,7 +22,7 @@ Based on the excellent work by @magohl on https://github.com/magohl/com.husqvarn
 ### Actions
 * Park until further notice
 * Park until scheduled start
-* Resume
+* Resume schedule
 * Start for duration
 
 ### Device settings

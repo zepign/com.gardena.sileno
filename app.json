@@ -439,7 +439,7 @@
         {
           "id": "SLIPPED",
           "title": {
-            "en": "Slipped - Mower has Slipped.Situation not solved with moving pattern"
+            "en": "Slipped - Mower has Slipped. Situation not solved with moving pattern"
           }
         },
         {
@@ -487,7 +487,7 @@
         {
           "id": "PARKED_DAILY_LIMIT_REACHED",
           "title": {
-            "en": "Mower has completed cutting due to daily limit reached."
+            "en": "Daily limit reached."
           }
         }
       ]
@@ -582,11 +582,11 @@
         "tokens": [
           {
             "name": "value",
-            "type": "number",
+            "type": "string",
             "title": {
               "en": "Error code"
             },
-            "example": 0
+            "example": "NO_LOOP_SIGNAL"
           }
         ],
         "args": [
@@ -749,7 +749,7 @@
       {
         "id": "resume_schedule",
         "title": {
-          "en": "Resume"
+          "en": "Resume schedule"
         },
         "hint": {
           "en": "Resume normal schedule"

@@ -132,7 +132,7 @@ module.exports = class SilenoDevice extends Homey.Device {
       const { id, deviceId, locationId } = this.getData();
       const mowerData = await this.util.getMower(locationId, id, deviceId);
 
-      if ( mowerData ) {
+      if (mowerData) {
         const { activity, state, lastErrorCode, batteryLevel } = mowerData;
         this.setAvailable();
         this.updateCapablity( "mower_activity_capability", activity.value );
@@ -142,8 +142,7 @@ module.exports = class SilenoDevice extends Homey.Device {
       } else {
           this.setWarning( "No data received", null );
       }
-    }
-    catch ( err ) {
+    } catch (err) {
         this.log( "SilenoDevice refresh error: " + err );
         this.setWarning( "error getting mower status", null );
     }
