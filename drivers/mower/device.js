@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const SilenoApiUtil = require('/lib/silenoapiutil.js');
+const WebSocket = require('ws');
 
 module.exports = class SilenoDevice extends Homey.Device {
 
@@ -11,14 +12,60 @@ module.exports = class SilenoDevice extends Homey.Device {
     if (!this.util) {
       this.util = new SilenoApiUtil({homey: this.homey });
     }
-
-    this._timerId = null;
-    this._pollingInterval = this.getSettings().polling_interval * 60000;
-
+    this._hasBeenDeleted = false;
+    this._ws = null;
+    this._pingInterval = null;
+    this._pingFrequencyMs = 150_000;
     this.initFlows();
+    this.initWebSocket();
+  }
 
-    if (eval(this.getSettings().polling)) {
-      this.refreshCapabilities();
+  async initWebSocket () {
+    try {
+      const { id, deviceId, locationId } = this.getData();
+
+      if (locationId) {
+        const url = await this.util.getWebSocketUrl(locationId);
+
+        this._ws = new WebSocket(url);
+        this._ws.on('open', () => {
+          this.log("SilenoDevice connected to WebSocket");
+          this._pingInterval = setInterval(() => {
+            this.log("SilenoDevice pinging WebSocket..");
+            this._ws.ping();
+          }, this._pingFrequencyMs);
+        });
+
+        this._ws.on('close', () => {
+          if (!this._hasBeenDeleted) {
+            this.log("SilenoDevice disconnected from WebSocket, reconnecting.");
+            this.initWebSocket();
+          }
+        });
+
+        this._ws.on('message', (msg) => {
+          try {
+            const message = JSON.parse(msg);
+            if (message.id === id && message.type === 'MOWER') {
+              const { activity, state, lastErrorCode } = message.attributes;
+              this.setAvailable();
+              this.updateCapablity( "mower_activity_capability", activity.value );
+              this.updateCapablity( "mower_state_capability", state.value );
+              this.updateCapablity( "mower_errorcode_capability", (lastErrorCode && lastErrorCode.value) || 'NO_MESSAGE' );
+            } else if (message.id === deviceId && message.type === 'COMMON') {
+              const { batteryLevel } = message.attributes;
+              this.setAvailable();
+              this.updateCapablity( "mower_battery_capability", batteryLevel.value );
+            }
+          } catch (err) {
+            this.log("SilenoDevice WebSocket failed to parse message: " + err + " - " + msg);
+          }
+        });
+      }
+
+    } catch (err) {
+      this.log("SilenoDevice WebSocket error, will retry: " + err);
+      this.initWebSocket();
     }
   }
 
@@ -32,34 +79,17 @@ module.exports = class SilenoDevice extends Homey.Device {
 
   async onDeleted() {
     this.log('SilenoDevice has been deleted');
-    if (this._timerId) {
-        clearTimeout( this._timerId );
+    this._hasBeenDeleted = true;
+    if (this._pingInterval) {
+        clearInterval(this._pingInterval);
+    }
+    if (this._ws) {
+      this._ws.terminate();
     }
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
     this.log('SilenoDevice settings where changed');
-
-    if (changedKeys.includes('polling_interval')) {
-      if ( this._timerId ) {
-        clearTimeout( this._timerId );
-        this._timerId = null;
-      }
-      this._pollingInterval = newSettings.polling_interval * 60000;
-      if (eval(this.getSettings().polling))
-        this.refreshCapabilities();
-    }
-
-    if (changedKeys.includes('polling')) {
-      if ( this._timerId ) {
-        clearTimeout( this._timerId );
-        this._timerId = null;
-      }
-      if (eval(newSettings.polling)) {
-        this.refreshCapabilities();
-      }
-    }
-
   }
 
   async addCapabilityIfNeeded(capability) {
@@ -122,35 +152,6 @@ module.exports = class SilenoDevice extends Homey.Device {
         this.log('SilenoDevice Flow-condition state_is triggered');
         return (args.state === this.getCapabilityValue('mower_state_capability'));
       });
-  }
-
-  async refreshCapabilities() {
-    try {
-      this.log( "SilenoDevice refreshCapabilities" );
-      this.unsetWarning();
-
-      const { id, deviceId, locationId } = this.getData();
-      const mowerData = await this.util.getMower(locationId, id, deviceId);
-
-      if (mowerData) {
-        const { activity, state, lastErrorCode, batteryLevel } = mowerData;
-        this.setAvailable();
-        this.updateCapablity( "mower_activity_capability", activity.value );
-        this.updateCapablity( "mower_state_capability", state.value );
-        this.updateCapablity( "mower_errorcode_capability", (lastErrorCode && lastErrorCode.value) || 'NO_MESSAGE' );
-        this.updateCapablity( "mower_battery_capability", batteryLevel.value );
-      } else {
-          this.setWarning( "No data received", null );
-      }
-    } catch (err) {
-        this.log( "SilenoDevice refresh error: " + err );
-        this.setWarning( "error getting mower status", null );
-    }
-
-    this._timerId = setTimeout( () =>
-    {
-        this.refreshCapabilities();
-    }, this._pollingInterval );
   }
 
   async updateCapablity(capability, value) {

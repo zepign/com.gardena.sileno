@@ -25,10 +25,6 @@ Based on the excellent work by @magohl on https://github.com/magohl/com.husqvarn
 * Resume schedule
 * Start for duration
 
-### Device settings
-* Polling enabled
-* Polling interval
-
 ### App settings
 * Username
 * Password
@@ -43,4 +39,4 @@ Based on the excellent work by @magohl on https://github.com/magohl/com.husqvarn
 * Use triggers, conditions or actions in your Homey flows or check status in the device overview.
 
 ### Rate limitations
-Note that the Gardena Smart API currently has an rate limitation of 3000 calls per month and account. By default this homey app polls the Gardena Smart API every 20 minutes. You can change this in app settings.
+There is a rate limitation of 3000 calls per month and account for the Gardena Smart API, as this app relies on Gardenas WebSocket API for realtime status updates this rate limitation should not be an issue.
