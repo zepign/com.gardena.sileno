@@ -55,7 +55,7 @@ module.exports = class SilenoDevice extends Homey.Device {
             } else if (message.id === deviceId && message.type === 'COMMON') {
               const { batteryLevel } = message.attributes;
               this.setAvailable();
-              this.updateCapablity( "mower_battery_capability", batteryLevel.value );
+              this.updateCapablity( "measure_battery", batteryLevel.value );
             }
           } catch (err) {
             this.log("SilenoDevice WebSocket failed to parse message: " + err + " - " + msg);

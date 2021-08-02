@@ -492,7 +492,7 @@
         }
       ]
     },
-    "mower_battery_capability": {
+    "measure_battery": {
       "type": "number",
       "title": {
         "en": "Battery"
@@ -552,7 +552,7 @@
         ]
       },
       {
-        "id": "mower_battery_capability_changed",
+        "id": "measure_battery_changed",
         "title": {
           "en": "Battery level changed"
         },
@@ -798,7 +798,7 @@
         "mower_activity_capability",
         "mower_state_capability",
         "mower_errorcode_capability",
-        "mower_battery_capability"
+        "measure_battery"
       ],
       "images": {
         "large": "/drivers/mower/assets/images/large.png",
@@ -817,6 +817,9 @@
           "template": "add_devices"
         }
       ],
+      "energy": {
+        "batteries": ["INTERNAL"]
+      },
       "settings": []
     }
   ]
