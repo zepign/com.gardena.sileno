@@ -445,49 +445,49 @@
         {
           "id": "INVALID_BATTERY_COMBINATION",
           "title": {
-            "en": "Invalid battery combination - Invalid combination of different battery types."
+            "en": "Invalid battery combination - Invalid combination of different battery types"
           }
         },
         {
           "id": "UNINITIALISED",
           "title": {
-            "en": "Radio module sent uninitialised value. We do not know the status of the mower."
+            "en": "Radio module sent uninitialised value. We do not know the status of the mower"
           }
         },
         {
           "id": "WAIT_UPDATING",
           "title": {
-            "en": "Mower waiting, updating firmware."
+            "en": "Mower waiting, updating firmware"
           }
         },
         {
           "id": "WAIT_POWER_UP",
           "title": {
-            "en": "Mower powering up."
+            "en": "Mower powering up"
           }
         },
         {
           "id": "OFF_DISABLED",
           "title": {
-            "en": "Mower disabled on main switch."
+            "en": "Mower disabled on main switch"
           }
         },
         {
           "id": "OFF_HATCH_OPEN",
           "title": {
-            "en": "Mower in waiting state with hatch open."
+            "en": "Mower in waiting state with hatch open"
           }
         },
         {
           "id": "OFF_HATCH_CLOSED",
           "title": {
-            "en": "Mower in waiting state with hatch closed."
+            "en": "Mower in waiting state with hatch closed"
           }
         },
         {
           "id": "PARKED_DAILY_LIMIT_REACHED",
           "title": {
-            "en": "Daily limit reached."
+            "en": "Daily limit reached"
           }
         }
       ]
